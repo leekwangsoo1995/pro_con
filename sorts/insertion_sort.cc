@@ -2,14 +2,26 @@
 
 using namespace std;
 int main(void){
-	int a;
-	std::cout << "整数を入力してください。 a = ";
+	int total;
+	int A[100];
 
-	for ( ;!(std::cin >> a); ) {
+	std::cout << "total = ";
+    cin >> total;
+	std::cout << "nums = ";
+    for(int i=0; i<total; i++)cin >> A[i];
 
-		std::cout << "入力が間違っています" << std::endl << " a = ";
+	std::cout << endl;
+	std::cout << endl;
 
-	}
+	std::cout << "total = ";
+	std::cout <<  total ;
+	std::cout << endl;
+    
+    for(int i=0; i<total; i++){
+	    std::cout << i <<"番目" << endl;
+	    std::cout <<  A[i] << endl;
+    }
+    
+	std::cout << endl;
 
-	std::cout << " a = " << a << std::endl;
 }
