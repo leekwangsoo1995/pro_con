@@ -2,25 +2,29 @@
 
 using namespace std;
 int main(void){
-	int total;
-	int A[100];
+	int A[100],total,tmp1,tmp2;
 
 	std::cout << "total = ";
     cin >> total;
 	std::cout << "nums = ";
     for(int i=0; i<total; i++)cin >> A[i];
 
-	std::cout << endl;
-	std::cout << endl;
-
-	std::cout << "total = ";
-	std::cout <<  total ;
-	std::cout << endl;
-    
-    for(int i=0; i<total; i++){
-	    std::cout << i <<"番目" << endl;
-	    std::cout <<  A[i] << endl;
+    for(int i=0;i<total;i++){
+        for(int j=i;0<j;j--){
+            if(A[j] < A[j - 1]){
+                tmp1 = A[j];
+                tmp2 = A[j - 1];
+                A[j - 1] = tmp1;
+                A[j] = tmp2;
+            }
+        }
+        for(int i=0; i<total; i++){
+	        std::cout << i <<"番目" << endl;
+	        std::cout <<  A[i] << endl;
+        }
     }
+
+
     
 	std::cout << endl;
 
