@@ -1,18 +1,21 @@
 #include <iostream>
 using namespace std;
 
-int bubbleSort(int A[],int N){
+int selectionSort(int A[],int N){
     int sw = 0;
-    bool flag = 1;
-    for(int i=0;flag;i++){
-        flag = 0;
-std::cout <<i;
-        for(int j=N -1; j>= i+ 1;j--){
-            if(A[j] < A[j-1]){
-                swap(A[j],A[j-1]);
-                flag = 1;
-                sw++;
+    bool flag = 0;
+    for(int i=0;i<N;i++){
+        int minx = i;
+        for(int j=i; j<N;j++){
+            if(A[j] < A[minx]){
+                minx = j;
+                flag = true;
             }
+        }
+        if(flag == true){
+            sw++;
+            swap(A[i],A[minx]);
+            flag = false;
         }
     }
     return sw;
@@ -28,7 +31,7 @@ int main(void){
 	std::cout << "nums = ";
     for(int i=0; i<N; i++)cin >> A[i];
 
-    sw = bubbleSort(A,N);
+    sw = selectionSort(A,N);
 
     for(int i = 0;i<N;i++){
         if(i) cout << " ";
