@@ -1,53 +1,44 @@
+#include<cstdio>
+#include<cstdlib>
+#include<cstring>
 #include <iostream>
 using namespace std;
 
-void selectionSort(int A[],int N){
-    for(int i=0;i<N;i++){
-        int minx = i;
-        for(int j=i; j<N;j++){
-            if(A[j] < A[minx]){
-                minx = j;
-            }
+struct Node{
+    int key;
+    Node *next,*prev;
+};
+
+Node *nil;
+void init(){
+    nil = (Node *)malloc(sizeof(Node));
+    nil->next = nil;
+    nil->prev = nil;
+}
+
+int main(){
+    int key,n,i;
+    int size = 0;
+    char com[20];
+    int coms[20];
+    int np=0,nd=0;
+    scanf("%d",&n);
+    init();
+
+    for(i=0;i<n;i++){
+        scanf("%s%d",com,coms);
+	    std::cout << com[0] << endl;
+	    std::cout << coms[0] << endl;
+	    std::cout << &key << endl;
+        if(com[0] == 'i'){
+
         }
-        swap(A[i],A[minx]);
     }
+
+    std::cout << endl;
+	std::cout << nil << endl;
+	std::cout << nil->next << endl;
+	std::cout << nil->prev << endl;
+
 }
 
-void bubbleSort(int A[],int N){
-    for(int i=0;i<N;i++){
-        for(int j=N;j>i;j--){
-            if(A[j] < A[j-1]){
-                swap(A[j],A[j-1]);
-            }
-        }
-    }
-}
-
-
-int main(void){
-	int A[100],B[100],N;
-
-	std::cout << "total = ";
-    cin >> N;
-	std::cout << "nums = ";
-    for(int i=0; i<N; i++)cin >> A[i];
-    for(int i=0; i<N; i++)B[i] = A[i];
-    
-
-    selectionSort(A,N);
-    bubbleSort(B,N);
-
-    for(int i = 0;i<N;i++){
-        if(i) cout << " ";
-        cout << A[i]; 
-    }
-	std::cout << endl;
-
-    for(int i = 0;i<N;i++){
-        if(i) cout << " ";
-        cout << B[i]; 
-    }
-	std::cout << endl;
-
-    return 0;
-}
