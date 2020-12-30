@@ -18,8 +18,6 @@ int binarySearch(int key){
         }
     }
     return 0;
-
-
 }
 
 int main(){
