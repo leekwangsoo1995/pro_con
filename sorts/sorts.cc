@@ -1,12 +1,13 @@
 #include<iostream>
 using namespace std;
 int A[100],tmp[100];
+//quickソートは、partitionを再帰関数を使ってpartitionしまくると完成する。
 
-int partition(int n){
+int partition(int A[],int n,int p,int r){
     int x,i,j,t;
     x = A[n - 1];
-    i = -1;
-    for(j = 0; j<n-1;j++){
+    i = p;
+    for(j = 0; j<r;j++){
         if(A[j] < x){
             i++;
             t=A[i];
@@ -15,16 +16,25 @@ int partition(int n){
         }
     }
     t = A[i +1];
-    A[i + 1] = A[n-1];
-    A[n -1] = t;
+    A[i + 1] = A[r];
+    A[r] = t;
     return i + 1;
+}
+void quickSort(int A[],int n,int p,int r){
+    if(p<r){
+        int q = partition(A,n,p,r);
+        quickSort(A,n,p,q-1);
+        quickSort(A,n,q+1,r);
+    }
+
 }
 
 int main(){
     int n,q;
     cin >> n;
     for(int i=0;i<n;i++)cin >> A[i];
-    q = partition(n);
+    quickSort(A,n,0,n-1);
+    
     for(int i=0;i<n;i++){
         if(i == q){
             cout << "[ ";
