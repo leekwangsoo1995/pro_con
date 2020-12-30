@@ -1,5 +1,42 @@
 #include<iostream>
 using namespace std;
+int A[100],tmp[100];
+
+int partition(int n){
+    int x,i,j,t;
+    x = A[n - 1];
+    i = -1;
+    for(j = 0; j<n-1;j++){
+        if(A[j] < x){
+            i++;
+            t=A[i];
+            A[i] = A[j];
+            A[j] = t;
+        }
+    }
+    t = A[i +1];
+    A[i + 1] = A[n-1];
+    A[n -1] = t;
+    return i + 1;
+}
+
+int main(){
+    int n,q;
+    cin >> n;
+    for(int i=0;i<n;i++)cin >> A[i];
+    q = partition(n);
+    for(int i=0;i<n;i++){
+        if(i == q){
+            cout << "[ ";
+        }
+        cout << A[i] ;
+        if(i == q){
+            cout << " ]";
+        }
+    }
+}
+
+/*
 #define MAX 50000
 #define SENTINEL 200000
 int L[MAX/2+2],R[MAX/2+2];
@@ -42,3 +79,4 @@ int main(){
     for(int i=0;i<n;i++)cout << A[i] << endl;
     cout << cnt;
 }
+*/
