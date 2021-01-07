@@ -59,6 +59,14 @@ void preorder(Node *u){
     preorder(u->right);
 }
 
+Node * find(Node *u,int k){
+    while(u != NIL && k != u->key){
+        if(k > u->key)u = u->left;
+        else u = u->right;
+    }
+    return u;
+}
+
 int main(){
     int n,i,x;
     string com;
@@ -67,7 +75,12 @@ int main(){
 
     for(i=0;i<n;i++){
         cin >> com;
-        if(com == "insert"){
+        if(com[0] == 'f'){
+            scanf("%d",&x);
+            Node *t = find(root,x);
+            if(t != NIL)printf("yes");
+            else printf("No");
+        }else if(com == "insert"){
             scanf("%d",&x);
             insert(x);
         }else if(com == "print"){
