@@ -2,24 +2,36 @@
 using namespace std;
 #define MAX 10000
 
-int parent(int i){return i / 2;}
-int left(int i){return i * 2;}
-int right(int i){return 2 * i + 1;}
+int H,A[MAX+1];
+
+void maxHeapify(int i){
+    int l,r,largest;
+    l = 2 * i;
+    r = 2 * i + 1;
+
+    if(l<=H && A[l] > A[i])largest = l;
+    else largest = i;
+    if(r<=H && A[r] > A[largest]) largest = r;
+
+    if(largest != i){
+        swap(A[i],A[largest]);
+        maxHeapify(largest);
+    } 
+}
 
 int main(){
-    int H,i,A[MAX+1];
     cin >> H;
 
-    for(i=1;i<=H;i++){
+    for(int i=1;i<=H;i++){
         cin >> A[i];
     }
-
-    for(i=1;i<=H;i++){
-        cout << "node" << i << ": key =" << A[i] << ", ";
-        if(parent(i) >= 1)cout << "parent key = " << A[parent(i)] << ", ";
-        if(left(i) <= H)cout << "left key = " << A[left(i)] << ", ";
-        if(right(i) <= H)cout << "right key = " << A[right(i)] << ", ";
-        cout << endl;
+    for(int i=H/2;i>=1;i--){
+        maxHeapify(i);
     }
 
+    for(int i=1;i<=H;i++){
+        cout << " " << A[i];
+    }
+    cout << endl;
+    return 0;
 }
