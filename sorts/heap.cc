@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 #define MAX 10000
+#define INFTY (1<<30)
 
 int H,A[MAX+1];
 
@@ -19,19 +20,45 @@ void maxHeapify(int i){
     } 
 }
 
+int extract(){
+    int maxv;
+    if(H < 1)return -INFTY;
+    maxv = A[1];
+    A[1] = A[H--];
+    maxHeapify(1);
+    return maxv;
+}
+
+void increaseKey(int i,int key){
+ //   if(key < A[i])return;
+    A[i] = key;
+    while(i > 1&& A[i/2] < A[i]){
+        swap(A[i],A[i / 2]);
+        i = i / 2;
+    }
+}
+
+void insert(int key){
+    H++;
+//    A[H] = -INFTY;
+    increaseKey(H,key);
+}
+
 int main(){
-    cin >> H;
+    int key;
+    char com[10];
 
-    for(int i=1;i<=H;i++){
-        cin >> A[i];
-    }
-    for(int i=H/2;i>=1;i--){
-        maxHeapify(i);
+    while(1){
+        scanf("%s",com);
+        if(com[0] == 'e' && com[1] == 'n')break;
+        if(com[0] == 'i'){
+            scanf("%d",&key);
+            insert(key);
+        }else{
+            printf("%d",extract());
+            cout << endl;
+        }
     }
 
-    for(int i=1;i<=H;i++){
-        cout << " " << A[i];
-    }
-    cout << endl;
     return 0;
 }
