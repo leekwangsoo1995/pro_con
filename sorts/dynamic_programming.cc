@@ -1,88 +1,61 @@
 #include<iostream>
-#include<stack>
+#include<queue>
 
 using namespace std;
 static const int N = 100;
-static const WHITE = 0;
-static const GRAY = 1;
-static const BLACK = 0;
+static const int INFTY = (1<<21);
 
 int n,M[N][N];
-int color[N],d[N],f[N],tt;
-int nt[N];
+int d[N];
 
-int next(int u){
-    for(int v=nt[u];v<n;v++){
-        nt[u] = v+1;
-        if(M[u][v])return v;
-    }
-    return -1;
-}
 
-void dfs_visit(int r){
-    for(int i=0;i<n;i++){
-        nt[i] = 0;
-    }
+void bfs(int s){
+   queue<int> q;
+   q.push(s);
+   for(int i=0;i<n;i++){
+       d[i] = INFTY;
+   } 
 
-    stack<int> S;
-    S.push(r);
-    color[r] = GRAY;
-    d[r] = ++tt;
-
-    while(!S.empty()){
-        int u = S.top();
-        int v = next(u);
-        if(v != -1){
-            if(color[v] == WHITE){
-                color[v] = GRAY;
-                d[v] = ++tt;
-                S.push(v);
-            }
-        }else{
-            S.pop();
-            color[u] = BLACK;
-            f[u] = ++tt;
+    d[s] = 0;
+    int u;
+    while(!q.empty()){
+        u= q.front();
+        q.pop();
+        for(int v=0;v<n;v++){
+            if(M[u][v] == 0)continue;
+            if(d[v] != INFTY)continue;
+            d[v] = d[u] + 1;
+            q.push(v);
         }
     }
-}
-
-void dfs(){
     for(int i=0;i<n;i++){
-        color[i] = WHITE;
-        nt[i] = 0;1
+        cout << i+1 << " " << ((d[i] == INFTY) ? (-1) : d[i]) << endl;
     }
-    tt = 0;
 
-    for(int u=0;u<n;u++){
-        if(color[u] == WHITE)dfs_visit(u);
-    }
-    for(int i=0;i<n;i++){
-        cout << i+1 << " " << d[i] << " " << f[i] << endl;
-    }
 }
 
 int main(){
     int u,k,v;
-
     cin >> n;
     for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++)M[i][j]=0;
+        for(int j=0;j<n;j++){
+            M[i][j] = 0;
+        }
     }
 
-    for(int i =0;i<n;i++){
-       cin >> u >> k; 
-       u--;
-       for(int j=0;j<k;j++){
-           cin >> v;
-           v--;
-           M[u][v] = 1;
-       }
+    for(int i=0;i<n;i++){
+        cin >> u >> k;
+        u--;
+        for(int j=0;j<k;j++){
+            cin >> v;
+            v--;
+            M[u][v] = 1;
+        }
     }
+    bfs(0);
 
-    dfs();
     return 0;
 
 }
-
 
 
