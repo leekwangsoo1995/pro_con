@@ -1,61 +1,64 @@
 #include<iostream>
-#include<queue>
+#include<vector>
+#include<stack>
 
 using namespace std;
-static const int N = 100;
-static const int INFTY = (1<<21);
+static const int MAX = 100000;
+static const int NIL = -1;
 
-int n,M[N][N];
-int d[N];
+int n;
+vector<int> G[MAX];
+int color[MAX];
 
 
-void bfs(int s){
-   queue<int> q;
-   q.push(s);
-   for(int i=0;i<n;i++){
-       d[i] = INFTY;
-   } 
-
-    d[s] = 0;
-    int u;
-    while(!q.empty()){
-        u= q.front();
-        q.pop();
-        for(int v=0;v<n;v++){
-            if(M[u][v] == 0)continue;
-            if(d[v] != INFTY)continue;
-            d[v] = d[u] + 1;
-            q.push(v);
+void dfs(int r,int c){
+    stack<int> S;
+    S.push(r);
+    color[r] = c;
+    while(!S.empty()){
+        int u=S.top();S.pop();
+        for(int i=0;i<G[u].size();i++){
+            int v = G[u][i];
+            if(color[v] == NIL){
+                color[v] = c;
+                S.push(v);
+            }
         }
     }
-    for(int i=0;i<n;i++){
-        cout << i+1 << " " << ((d[i] == INFTY) ? (-1) : d[i]) << endl;
-    }
+}
 
+void assingColor(){
+    int id=1;
+    for(int i=0;i<n;i++){
+        color[i] = NIL;
+    }
+    for(int u=0;u<n;u++){
+        if(color[u]==NIL)dfs(u,id++);
+    }
 }
 
 int main(){
-    int u,k,v;
-    cin >> n;
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            M[i][j] = 0;
-        }
+    int s,t,m,q;
+    cin >> n >> m;
+    for(int i=0;i<m;i++){
+        cin >> s >> t;
+       G[s].push_back(t);
+       G[t].push_back(s);
     }
 
-    for(int i=0;i<n;i++){
-        cin >> u >> k;
-        u--;
-        for(int j=0;j<k;j++){
-            cin >> v;
-            v--;
-            M[u][v] = 1;
+    assingColor();
+
+    cin >> q;
+
+    for(int i=0;i<q;i++){
+        cin >> s >> t;
+        if(color[s] == color[t]){
+            cout << "yes" << endl;
+        }else{
+            cout << "no" << endl;
         }
     }
-    bfs(0);
-
     return 0;
-
 }
 
 
