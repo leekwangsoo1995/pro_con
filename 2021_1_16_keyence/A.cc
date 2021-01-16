@@ -14,8 +14,6 @@ int main(){
     unsigned long long number[max];
     unsigned long long a[n];
     unsigned long long b[n];
-    unsigned long long biga=0;
-    unsigned long long bigb=0;
 
     for(int i=0;i<n;i++){
         cin >> a[i];
@@ -28,18 +26,11 @@ int main(){
     for(int i=0;i<n;i++){
        number[i] = 0;
        for(int x=0;x<i+1;x++){
-           if(biga < a[x]){
-               biga = a[x];
-           }
-           bigb=0;
            for(int k=0;k<i+1;k++){
                if(x>k){
                   continue;
                }
-               if(bigb < b[k]){
-                bigb = b[k];
-               }
-               if(a[x] == biga && b[k] == bigb && number[i] < a[x]*b[k]){
+               if(number[i] < a[x]*b[k]){
                    number[i] = a[x]*b[k];
                }
            }
