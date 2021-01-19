@@ -1,53 +1,30 @@
-#include<iostream>
-#include <vector>
-using namespace std;
 //https://atcoder.jp/contests/abc188/tasks/abc188_c
-long long N,k;
-long long M;
+#include <stdio.h>
+#include <utility>
+#include <algorithm>
+#include <vector>
+#include<iostream>
 
-int main(){
-    cin >> N;
-    M = N*N;
-    vector<long long> v(M); 
-    vector<long long> z(M); 
-
-    for(long long i=0;i<M;i++){
-        cin >> v[i];
-    }
-    for(long long i=0;i<(long long)v.size();i++){
-        z[i] = v[i];
-    }
-
-    long long t = 0;
-    long long k = 0;
-    long long max_size = 0;
-    while((long long)v.size() != 2){
-        if(t==0){
-            max_size = (long long)v.size();    
-        }
-        v[k] = max(v[t],v[t+1]);
-        t += 2;
-        k++;
-        if(t == max_size){
-            t=0;
-            k=0;
-            long long s =  (long long)v.size() / 2;
-            for(long long i=0;i<s;i++){
-               v.pop_back(); 
-            }
-        }
-    }
-
-    long long ret = min(v[0],v[1]);
-
-    for(long long i=0;i<=M;i++){
-        if(z[i] == ret){
-            cout << i + 1;
-            return 0;
-        }
-    }
-
-    return 0;
+using namespace std;
+int ri() {
+	int n;
+	scanf("%d", &n);
+	return n;
+}
+int main() {
+	int n = ri();
+	vector<int> a(1 << n);
+	for (auto &i : a) i = ri();
+	int half = 1 << (n - 1);
+	int max = max_element(a.begin(), a.end()) - a.begin();//これで、最大値のvectorの箇所を取得している。
+    //max_element(a.begin(), a.end())だけだと、イテレータが返される。
+    auto start = max < half ? a.begin() + half : a.begin();
+    //maxの位置が半分よりも小さければ、start地点を半分から開始する。
+	printf("%d\n", (int) (max_element(start, start + half) - a.begin() + 1));
+    //またmax_elementを使って、先ほど見つけた箇所から位置を取得している。
+	
+	return 0;
 }
 
 
+//完全２分探索木に対する理解がきちんと出来ていて、max_elementを正しくできれば、要素の位置を問題なく取得できる。
