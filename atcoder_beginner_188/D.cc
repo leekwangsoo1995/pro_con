@@ -13,6 +13,7 @@
 #include <tuple>
 #define int long long
 #define rep(i, n) for(i = 0; i < n; i++)
+//defineで、関数を定義している。
 using namespace std;
  
 int n, C;
@@ -27,10 +28,12 @@ signed main() {
 		cin >> a[i] >> b[i] >> c[i];
 		b[i]++;
 	}
+    //repを呼び出す事で、defineで定義された、rep(i, n) for(i = 0; i < n; i++)が実行される。
 	rep(i, n) {
 		day.push_back(a[i]);
 		day.push_back(b[i]);
 	}
+    /*
 	sort(day.begin(), day.end());
 	day.erase(unique(day.begin(), day.end()), day.end());
 	
@@ -53,5 +56,5 @@ signed main() {
 		ans += width * h;
 	}
 	cout << ans << endl;
-	return 0;
+	return 0;*/
 }
