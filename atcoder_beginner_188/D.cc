@@ -29,14 +29,15 @@ signed main() {
 		b[i]++;
 	}
     //repを呼び出す事で、defineで定義された、rep(i, n) for(i = 0; i < n; i++)が実行される。
+    //b[i]++をする事で、b[i]の中身に+1をしている。おそらく、終点の日にちを計算するためにあえてしていると思われる。
 	rep(i, n) {
 		day.push_back(a[i]);
 		day.push_back(b[i]);
 	}
-    /*
 	sort(day.begin(), day.end());
 	day.erase(unique(day.begin(), day.end()), day.end());
 	
+    /*
 	int m = day.size();
 	vector<int> imos(m);
 	rep(i, n) {
