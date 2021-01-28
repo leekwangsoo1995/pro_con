@@ -1,3 +1,4 @@
+/*
 #include<iostream>
 #include<vector>
 #include<algorithm>
@@ -7,7 +8,6 @@ using namespace std;
 //２つの配列をsortする。
 //!つきの配列から、!がついていない物で同じものがあるか探る。
 //検索する時は、もし同じ文字列でもう一度検索する場合は、検索しないように条件を足しておく。
-
 
 vector<string> x;
 vector<string> y;
@@ -44,5 +44,26 @@ int main(){
     }
     return 0;
 }
+*/
 
 
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_set>
+using namespace std;
+int main(){
+    int N;
+    cin >> N;
+    vector<string> S(N);
+    for(string& s : S) cin >> s;
+    unordered_set<string> h(S.begin(), S.end());
+    for(string& s : S) if(h.count('!' + s)){
+        cout << s << endl;
+        return 0;
+    }
+    cout << "satisfiable" << endl;
+}
+
+//unordered_setを使うと、同一キーが排除されたコンテナが作成される。
+//そして、count関数を使うと、同一の文字列が含まれている物を検索してくれる。
